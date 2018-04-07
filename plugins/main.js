@@ -73,14 +73,14 @@ function onLoad(assignmentId, ownerName, version) {
   header.append($('<p>').append('The full assignment with our supporting code and scripts can be downloaded as <a href="../' + assignmentId + '.zip">' + assignmentId + '.zip</a>.'));
   var ol = $('<ol>').addClass('problem');
   ol.append($('<li>').addClass('writeup').addClass('template').append('This icon means a written answer is expected in <code>' + assignmentId + '.pdf</code>.'));
-  ol.append($('<li>').addClass('code').addClass('template').append('This icon means you should write code in <code>submission.py</code>.'));
+  ol.append($('<li>').addClass('code').addClass('template').append('This icon means you should write code in <code>pacmanAgent.py</code>.'));
   header.append(ol);
 
   header.append($('<p>').append(
-    'You should modify the code in <code>submission.py</code> between ' +
+    'You should modify the code in <code>pacmanAgent.py</code> between ' +
     '<pre># BEGIN_YOUR_CODE</pre> and <pre># END_YOUR_CODE</pre> ' +
     'but you can add other helper functions outside this block if you want. ' +
-    'Do not make changes to files other than <code>submission.py</code>.'));
+    'Do not make changes to files other than <code>pacmanAgent.py</code>.'));
 
   header.append($('<p>').append(
     'Your code will be evaluated on two types of test cases, <b>basic</b> and <b>hidden</b>, which you can see in <code>grader.py</code>. ' +

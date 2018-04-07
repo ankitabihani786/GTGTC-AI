@@ -61,8 +61,6 @@ class ReflexAgent(Agent):
     bestScore = max(scores)
     bestIndices = [index for index in range(len(scores)) if scores[index] == bestScore]
     chosenIndex = random.choice(bestIndices) # Pick randomly among the best
-
-
     return legalMoves[chosenIndex]
 
   def evaluationFunction(self, currentGameState, action):
@@ -81,7 +79,6 @@ class ReflexAgent(Agent):
     oldFood = currentGameState.getFood()
     newGhostStates = successorGameState.getGhostStates()
     newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
-
     return successorGameState.getScore()
 
 
@@ -122,7 +119,6 @@ class MinimaxAgent(MultiAgentSearchAgent):
   """
     Your minimax agent
   """
-
   def getAction(self, gameState):
     """
       Returns the minimax action from the current gameState using self.depth
@@ -160,9 +156,9 @@ class MinimaxAgent(MultiAgentSearchAgent):
         # If you reached the end of game, return the score
         if gameState.isWin() | gameState.isLose():
             return gameState.getScore()
+
+        # When you reach a depth of 0, you need to approximate the future reward from that state. This is where you use the evaluationFunction
         
-        ''' When you reach a depth of 0, you need to approximate the future reward from that state. This is where you use the evaluationFunction
-        '''
         if depth == 0:
             return self.evaluationFunction(gameState)
         
@@ -175,13 +171,9 @@ class MinimaxAgent(MultiAgentSearchAgent):
             #Initialize it here
             maxScore = None # TODO
             for action in actions:
-                ''''
-                get the successor state from the game state for the given action. 
-                Hint: You might find gameState.generateSuccessor() useful here.
-                gameState.generateSuccessor(agentIndex, action):
-                Returns the successor state after the specified agent takes the action.
-                Pac-Man is always agent 0.
-                '''
+                # get the successor state from the game state for the given action. 
+                # Hint: You might find gameState.generateSuccessor(agentIndex, action) useful here.
+                # Returns the successor state after the specified agent takes the action. Pac-Man is always agent 0.
                 successor = None # TODO
                 currScore = None # TODO
                 if currScore > maxScore:
@@ -192,29 +184,23 @@ class MinimaxAgent(MultiAgentSearchAgent):
         else:
             minScore = None # TODO
             for action in actions:
-                ''''
-                get the successor state from the game state for the given action. 
-                Hint: You might find gameState.generateSuccessor() useful here.
-                gameState.generateSuccessor(agentIndex, action):
-                Returns the successor state after the specified agent takes the action.
-                Pac-Man is always agent 0.
-                '''
+                # get the successor state from the game state for the given action. 
+                # Hint: You might find gameState.generateSuccessor() useful here.
+                # gameState.generateSuccessor(agentIndex, action):
+                # Returns the successor state after the specified agent takes the action. Pac-Man is always agent 0.
                 successor = None # TODO
                 if agentIndex != (gameState.getNumAgents()-1):
                     currScore = None # TODO
                 else:
                     currScore = None # TODO
-                    
                 if currScore < minScore:
                     minScore = currScore
             return minScore
-    '''Candidate legal actions that the pacman can take e.g DIRECTIONS.WEST, DIRECTIONS.EAST etc.
-    '''
+    # Candidate legal actions that the pacman can take e.g DIRECTIONS.WEST, DIRECTIONS.EAST etc.
     maxScore = float('-inf')
-    '''Fetching all the legal moves for the Pacman agent.
-    In this game, we have a pacman and multiple ghosts. Pacman is identified
-    with index 0, and the rest of the ghosts are index > 0.
-    '''
+    # Fetching all the legal moves for the Pacman agent.
+    # In this game, we have a pacman and multiple ghosts. Pacman is identified
+    # with index 0, and the rest of the ghosts are index > 0.
     actions = gameState.getLegalActions(self.index)
     ## If there are no legal actions that you can take, you just stop the pacman.
     if len(actions) == 0:
@@ -223,16 +209,14 @@ class MinimaxAgent(MultiAgentSearchAgent):
     bestAction = actions[0]
 
     for action in actions:
-        ''''
-        get the successor state from the game state for the given action. 
-        Hint: You might find gameState.generateSuccessor() useful here.
-        gameState.generateSuccessor(agentIndex, action):
-        Returns the successor state after the specified agent takes the action.
-        Pac-Man is always agent 0.
-        '''
+        # get the successor state from the game state for the given action. 
+        # Hint: You might find gameState.generateSuccessor() useful here.
+        # gameState.generateSuccessor(agentIndex, action)
+        # Returns the successor state after the specified agent takes the action.
+        # Pac-Man is always agent 0.
         successor = None # TODO
-        ## Hint: You need to implement and call computeScore() function here.
-        ## computeScore(gameState, depth, agentIndex):
+        # Hint: You need to implement and call computeScore() function here.
+        # computeScore(gameState, depth, agentIndex):
         score = 0 # TODO
         # Choose the best action that maximizes your score.
         if score > maxScore:
@@ -245,7 +229,7 @@ class MinimaxAgent(MultiAgentSearchAgent):
 # Alpha-beta pruning
 class AlphaBetaAgent(MultiAgentSearchAgent):
     def getAction(self, gameState):
-        bestAction = ""
+        bestAction = None
         actions = gameState.getLegalActions(self.index)
         alpha = float('-inf')
         beta = float('inf')
@@ -260,74 +244,5 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
                 bestAction = action
             alpha = max(alpha, maxScore)
         return bestAction
-
-
-# class ExpectimaxAgent(MultiAgentSearchAgent):
-#   """
-#     Your expectimax agent
-#   """
-#   def getAction(self, gameState):
-#     """
-#       Returns the expectimax action using self.depth and self.evaluationFunction
-
-#       All ghosts should be modeled as choosing uniformly at random from their
-#       legal moves.
-#     """
-#     def computeScore(gameState, depth, agentIndex):
-#         if gameState.isWin() | gameState.isLose():
-#             return gameState.getScore()
-        
-#         if depth == 0:
-#             return self.evaluationFunction(gameState)
-        
-#         ## get all valid actions for the game state. 
-#         ## Hint: You might find getLegalActions() useful here.
-#         actions = None # TODO
-
-#         ## Your Pacman agent should try to maximize its score.
-#         if agentIndex == self.index:
-#             #Initialize it here
-#             maxScore = 0 # TODO
-#             for action in actions:
-#             ## get the successor state from the game state for the given action. 
-#             ## Hint: You might find generateSuccessor() useful here.
-#             ## This generateSuccessor() function returns the successor state after the specified agent ## takes the action.
-#                 successor = None # TODO
-#                 maxScore = 0 # TODO
-
-#             return maxScore
-#         ## When you reach the last ghost, the next agent would be pacman, and the depth of the game tree will reduce by 1
-#         elif agentIndex == (gameState.getNumAgents()-1):
-#             minScore = 0 # TODO
-#             for action in actions:
-#                 ## get the successor state from the game state for the given action. 
-#                 ## Hint: You might find generateSuccessor() useful here.
-#                 ## This generateSuccessor() function returns the successor state after the specified agent ## takes the action.
-#                 minScore = 0 # TODO
-#             return minScore
-#         ## For the other ghosts, depth will remain the same, but the agent index will increment by 1.
-#         else:
-#             minScore = 0 # TODO
-#             for action in actions:
-#                 ## get the successor state from the game state for the given action. 
-#                 ## Hint: You might find generateSuccessor() useful here.
-#                 ## This generateSuccessor() function returns the successor state after the specified agent ## takes the action.
-#                 minScore = 0 # TODO
-#             return minScore
-        
-#     bestAction = ""
-#     maxScore = float('-inf')
-#     actions = gameState.getLegalActions(self.index)
-    
-#     if len(actions) == 0:
-#         return Directions.STOP
-
-#     for action in actions:
-#         successor = None # TODO
-#         score = 0 # TODO
-#         # Choose the best action that maximizes your score.
-#         if score > maxScore:
-#             pass # TODO
-#     return bestAction
 
 ######################################################################################
