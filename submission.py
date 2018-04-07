@@ -166,17 +166,21 @@ class MinimaxAgent(MultiAgentSearchAgent):
             return self.evaluationFunction(gameState)
         
         ## get all valid actions for the game state. 
-        ## Hint: You might find getLegalActions() useful here.
-        actions = 0 # TODO
+        ## Hint: You might find gameState.getLegalActions() useful here.
+        actions = None # TODO
 
         ## Your Pacman agent should try to maximize its score.
         if agentIndex == self.index:
             #Initialize it here
             maxScore = 0 # TODO
             for action in actions:
-                ## get the successor state from the game state for the given action. 
-                ## Hint: You might find generateSuccessor() useful here.
-                ## This generateSuccessor() function returns the successor state after the specified agent ## takes the action.
+                ''''
+                get the successor state from the game state for the given action. 
+                Hint: You might find gameState.generateSuccessor() useful here.
+                gameState.generateSuccessor(agentIndex, action):
+                Returns the successor state after the specified agent takes the action.
+                Pac-Man is always agent 0.
+                '''
                 successor = None # TODO
                 maxScore = max(maxScore, None)  # TODO
             return maxScore
@@ -185,7 +189,12 @@ class MinimaxAgent(MultiAgentSearchAgent):
         else:
             minScore = 0 # TODO
             for action in actions:
-                '''get the successor state from the game state for the given action. Hint: You might find generateSuccessor() useful here.
+                ''''
+                get the successor state from the game state for the given action. 
+                Hint: You might find gameState.generateSuccessor() useful here.
+                gameState.generateSuccessor(agentIndex, action):
+                Returns the successor state after the specified agent takes the action.
+                Pac-Man is always agent 0.
                 '''
                 successor = None # TODO
                 if agentIndex != (gameState.getNumAgents()-1):
