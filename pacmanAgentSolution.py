@@ -164,35 +164,35 @@ class MinimaxAgent(MultiAgentSearchAgent):
         
         ## get all valid actions for the game state. 
         ## Hint: You might find gameState.getLegalActions() useful here.
-        actions = None # TODO
+        actions = gameState.getLegalActions(agentIndex)
 
         ## Your Pacman agent should try to maximize its score.
         if agentIndex == self.index:
             #Initialize it here
-            maxScore = None # TODO
+            maxScore = float('-inf')
             for action in actions:
                 # get the successor state from the game state for the given action. 
                 # Hint: You might find gameState.generateSuccessor(agentIndex, action) useful here.
                 # Returns the successor state after the specified agent takes the action. Pac-Man is always agent 0.
-                successor = None # TODO
-                currScore = None # TODO
+                successor = gameState.generateSuccessor(agentIndex, action)
+                currScore = computeScore(successor, self.depth, agentIndex + 1)
                 if currScore > maxScore:
                     maxScore = currScore
             return maxScore
         # When you reach the last ghost, the next agent would be pacman, and the depth of the game tree will reduce by 1.
         # For the other ghosts, depth will remain the same, but the agent index will increment by 1.
         else:
-            minScore = None # TODO
+            minScore = float('inf')
             for action in actions:
                 # get the successor state from the game state for the given action. 
                 # Hint: You might find gameState.generateSuccessor() useful here.
                 # gameState.generateSuccessor(agentIndex, action):
                 # Returns the successor state after the specified agent takes the action. Pac-Man is always agent 0.
-                successor = None # TODO
+                successor = gameState.generateSuccessor(agentIndex, action)
                 if agentIndex != (gameState.getNumAgents()-1):
-                    currScore = None # TODO
+                    currScore = computeScore(successor, self.depth-1, self.index)
                 else:
-                    currScore = None # TODO
+                    currScore = computeScore(successor, self.depth, agentIndex + 1)
                 if currScore < minScore:
                     minScore = currScore
             return minScore
@@ -214,13 +214,14 @@ class MinimaxAgent(MultiAgentSearchAgent):
         # gameState.generateSuccessor(agentIndex, action)
         # Returns the successor state after the specified agent takes the action.
         # Pac-Man is always agent 0.
-        successor = None # TODO
+        successor = gameState.generateSuccessor(self.index, action)
         # Hint: You need to implement and call computeScore() function here.
         # computeScore(gameState, depth, agentIndex):
-        score = 0 # TODO
+        score = computeScore(successor, self.depth, self.index + 1)
         # Choose the best action that maximizes your score.
         if score > maxScore:
-            pass
+            maxScore = score
+            bestAction = action
     return bestAction
     
     # END_YOUR_CODE
