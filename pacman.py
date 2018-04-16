@@ -573,7 +573,7 @@ def loadAgent(pacman, nographics):
 
   for moduleDir in pythonPathDirs:
     if not os.path.isdir(moduleDir): continue
-    moduleNames = [f for f in os.listdir(moduleDir) if f.endswith('gents.py') or f=='submission.py']
+    moduleNames = [f for f in os.listdir(moduleDir) if f.endswith('gents.py') or f=='pacmanAgent.py']
     for modulename in moduleNames:
       try:
         module = __import__(modulename[:-3])
@@ -586,10 +586,10 @@ def loadAgent(pacman, nographics):
   raise Exception('The agent ' + pacman + ' is not specified in any *Agents.py.')
 
 def replayGame( layout, actions, display ):
-    import submission, ghostAgents
+    import pacmanAgent, ghostAgents
     rules = ClassicGameRules()
     # If replaying, change the agent from ExpectimaxAgent to whatever agent with which you want to play
-    agents = [submission.ExpectimaxAgent()] + [ghostAgents.RandomGhost(i+1) for i in range(layout.getNumGhosts())]
+    agents = [pacmanAgent.ExpectimaxAgent()] + [ghostAgents.RandomGhost(i+1) for i in range(layout.getNumGhosts())]
     game = rules.newGame( layout, agents[0], agents[1:], display )
     state = game.state
     display.initialize(state.data)
