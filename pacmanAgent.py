@@ -163,7 +163,7 @@ class MinimaxAgent(MultiAgentSearchAgent):
             return self.evaluationFunction(gameState)
         
         ## get all valid actions for the game state. 
-        ## Hint: You might find gameState.getLegalActions() useful here.
+        ## Hint: You might find gameState.getLegalActions(agentId) useful here.
         actions = gameState.getLegalActions(agentId) # TODO
 
         ## Your Pacman agent should try to maximize its score.
