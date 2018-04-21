@@ -182,7 +182,7 @@ class MinimaxAgent(MultiAgentSearchAgent):
         # When you reach the last ghost, the next agent would be pacman, and the depth of the game tree will reduce by 1.
         # For the other ghosts, depth will remain the same, but the agent index will increment by 1.
         else:
-            minScore = None
+            minScore = None # TODO
             for action in actions:
                 # get the successor state from the game state for the given action. 
                 # Hint: You might find gameState.generateSuccessor(agentId, action) useful here.
